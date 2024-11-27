@@ -1,0 +1,37 @@
+{
+    "1": {
+        "username": "123",
+        "youchat_id": "24615431",
+        "password": "123"
+    },
+    "2": {
+        "username": "name",
+        "youchat_id": "24750560",
+        "password": "123456"
+    },
+    "3": {
+        "username": "admin",
+        "youchat_id": "24339238",
+        "password": "123456"
+    },
+    "4": {
+        "username": "admin1",
+        "youchat_id": "24678941",
+        "password": "123456"
+    },
+    "5": {
+        "username": "admin2",
+        "youchat_id": "24741961",
+        "password": "123456"
+    },
+    "6": {
+        "username": "admin3",
+        "youchat_id": "24831330",
+        "password": "123456"
+    },
+    "7": {
+        "username": "admin4",
+        "youchat_id": "24256890",
+        "password": "123456"
+    }
+}

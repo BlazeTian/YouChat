@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    
+    <title>register</title>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="registration-container">
+        <h1 id="title">YouChat 注册</h1>
+        <p class="subtitle">腾讯有WeChat，你有YouChat！</p>
+        <form id="registrationForm" action="#" method="POST" onsubmit="return handleRegister(event)">
+            <div class="input-group">
+                <label for="username">用户名</label>
+                <input type="text" name="username" id="username" placeholder="输入用户名" required>
+            </div>
+            <div class="input-group">
+                <label for="youchat-id">YouChat-ID</label>
+                <input type="text" name="youChatID" id="youchat-id" placeholder="自动生成" readonly>
+                <button type="button" onclick="generateYouChatID()">生成 ID</button>
+            </div>
+            <div class="input-group">
+                <label for="password">密码</label>
+                <input type="password" name="password" id="password" placeholder="输入密码" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">确认密码</label>
+                <input type="password" id="confirm-password" placeholder="确认密码" required>
+            </div>
+            <button type="submit">注册</button>
+        </form>
+        
+        
+        <div id="message"></div>
+        <div class="footer">
+            <p>已经有账户？<a href="../login/login.html">登录</a></p>
+        </div>
+    </div>
+    <script src="register.js"></script>
+    <script src="auto_id.js"></script>
+</body>
+</html>

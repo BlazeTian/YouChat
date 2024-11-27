@@ -1,0 +1,25 @@
+/* Emoji面板的样式 */
+.emoji-panel {
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.emoji {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.emoji:hover {
+    opacity: 0.7;
+}

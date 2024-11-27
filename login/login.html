@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>YouChat 登录</title>
+        <link rel="stylesheet" href="login.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="box">
+            <span class="borderLine"></span>
+            <form id="loginForm" action="#" onsubmit="return handleLogin(event)">
+                <h2 id="title">YouChat 登录</h2>
+                <div class="inputBox">
+                    <input type="text" id="youchat-id" name="youchat-id" required="required" />
+                    <span>YouChat账号：</span><i></i>
+                </div>
+
+                <div class="inputBox">
+                    <input type="password" id="password" name="password" required="required" />
+                    <span>密码：</span><i></i>
+                </div>
+
+                <div class="links">
+                    <a href="#">忘记密码</a>
+                    <a href="../register/register.html">注册</a>
+                </div>
+
+                <input type="submit" value="登录">
+            </form>
+        </div>
+        <script src="login.js"></script>
+    </body>
+</html>

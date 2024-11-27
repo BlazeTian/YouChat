@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouChat 个人信息</title>
+    <link rel="stylesheet" href="my_info.css">
+    <script src="my_info.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <img src="my_info_background.png" alt="背景图片" class="background-img">
+        <div class="profile-card">
+            <div class="avatar-container">
+                <img id="avatar" src="user1.png" alt="用户头像">
+                <button id="updateAvatarBtn">修改头像</button>
+            </div>
+            <!-- 弹出头像修改选择文件的输入框 -->
+            <div id="avatarModal" class="modal">
+                <div class="modal-content">
+                    <label for="avatarInput">选择头像：</label>
+                    <input type="file" id="avatarInput" accept="image/*">
+                    <button id="saveAvatarBtn">保存</button>
+                    <button id="cancelAvatarBtn">取消</button>
+                </div>
+            </div>
+            <div class="info-container">
+                <h2 id="username">用户名：天哥</h2>
+                <p id="youchat-id">YouChat-ID：24741961</p>
+            </div>
+        </div>
+        <div class="signature-container">
+            <p id="signatureText">个性签名：我是废物！！！😀😀😀</p>
+            <button id="editSignatureBtn">修改个性签名</button>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div>
+            <a href="../app/chat.html">回到首页</a>
+        </div>
+        <!-- 弹出修改个性签名的输入框 -->
+        <div id="signatureModal" class="modal">
+            <div class="modal-content">
+                <label for="signatureInput">个性签名：</label>
+                <input type="text" id="signatureInput" placeholder="请输入新的个性签名">
+                <button id="saveSignatureBtn">保存</button>
+                <button id="cancelSignatureBtn">取消</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

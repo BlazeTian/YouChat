@@ -1,0 +1,100 @@
+[
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:30:00Z",
+        "type": "text",
+        "content": "你好！"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:31:00Z",
+        "type": "text",
+        "content": "你好！有什么可以帮忙的吗？"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:32:00Z",
+        "type": "image",
+        "content": "static/images/sample_image1.jpg"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:33:00Z",
+        "type": "text",
+        "content": "这是新上传的图片吗？看起来不错！"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:34:00Z",
+        "type": "audio",
+        "content": "static/audio/sample_audio1.mp3"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:35:00Z",
+        "type": "text",
+        "content": "谢谢你的语音，我听到了，非常清晰！"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:36:00Z",
+        "type": "video",
+        "content": "static/videos/sample_video1.mp4"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:37:00Z",
+        "type": "text",
+        "content": "这个视频是最新的项目展示吗？很棒！"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:38:00Z",
+        "type": "audio",
+        "content": "static/audio/sample_audio2.mp3"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:39:00Z",
+        "type": "text",
+        "content": "我明白了，谢谢你的详细解释！"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:40:00Z",
+        "type": "video",
+        "content": "static/videos/sample_video2.mp4"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:41:00Z",
+        "type": "text",
+        "content": "这个视频真是太有创意了！我学到了不少。"
+    },
+    {
+        "sender": "user2",
+        "avatar": "user2.png",
+        "timestamp": "2024-11-25T19:42:00Z",
+        "type": "image",
+        "content": "static/images/sample_image2.jpg"
+    },
+    {
+        "sender": "user1",
+        "avatar": "user1.png",
+        "timestamp": "2024-11-25T19:43:00Z",
+        "type": "text",
+        "content": "这是一个漂亮的设计！感谢分享！"
+    }
+]

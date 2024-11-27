@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>YouChat 聊天系统</title>
+        <link rel="stylesheet" href="chat.css">
+        <link rel="stylesheet" href="emoji.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <!-- 左侧导航栏 -->
+            <div class="sidebar">
+                <div class="profile-section"
+                    onclick="location.href='../my_info/my_info.html'">
+                    <img id="user-avatar" src="user1.png" alt="头像" />
+                </div>
+
+                <div class="menu">
+                    <div class="menu-item" onclick="openChatList()">💬</div>
+                    <div class="menu-item" onclick="openGames()"><a href="../video_info/video_catch.html" style="text-decoration: none;">🎦</a></div>
+                    <div class="menu-item" onclick="openGames()"><a href="../audio_info/audio_catch.html" style="text-decoration: none;">🎧</a></div>
+                    <div class="menu-item" onclick="openGames()"><a href="../ai/ai.html" style="text-decoration: none;">🧠</a></div>
+                    <div class="menu-item" onclick="openGames()">🔧</div>
+
+                </div>
+            </div>
+
+            <!-- 中间联系人列表 -->
+            <div class="chat-list">
+                <div class="search-bar">
+                    <input type="text" placeholder="搜索用户名..."
+                        id="search-input" />
+                    <button id="search-button">🔍</button>
+                </div>
+                <div class="contacts">
+                    <div class="contact" onclick="openChat('user123')">
+                        <img class="contact-avatar" src="user2.png"
+                            alt="用户头像" />
+                        <div class="contact-info">
+                            <span class="contact-name">测试用户：</span>
+                            <span class="contact-message">🌙🌙🌙🌙</span>
+                        </div>
+                        <span class="contact-time"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧聊天窗口 -->
+            <div class="chat-window">
+                <div class="chat-history">
+                    <!-- 对方发送文字消息 -->
+                    <div class="chat-message other">
+                        <img class="message-avatar" src="user2.png"
+                            alt="对方头像" />
+                        <div class="message-content">你好！</div>
+                    </div>
+
+                    <!-- 自己发送文字消息 -->
+                    <div class="chat-message self">
+                        <div class="message-content">你好！有什么可以帮忙的吗？</div>
+                        <img class="message-avatar" src="user1.png"
+                            alt="我的头像" />
+                    </div>
+
+                    <!-- 对方发送图片消息 -->
+                    <div class="chat-message other">
+                        <img class="message-avatar" src="user2.png"
+                            alt="对方头像" />
+                        <img class="message-content message-image"
+                            src="./uploads/imag/QQ20241125-233851.png"
+                            alt="图片消息" />
+                    </div>
+                    <div class="chat-message other">
+                        <img class="message-avatar" src="user2.png"
+                            alt="对方头像" />
+                        <img class="message-content message-image"
+                            src="./uploads/imag/QQ20241125-233859.png"
+                            alt="图片消息" />
+                    </div>
+
+                    <!-- 自己发送图片消息 -->
+
+                    <!-- 对方发送音频消息 -->
+                    <div class="chat-message other">
+                        <img class="message-avatar" src="user2.png"
+                            alt="对方头像" />
+                        <audio class="message-content" controls>
+                            <source src="./uploads/audio/张碧晨 - 开往早晨的午夜.mp3"
+                                type="audio/mpeg">
+                            您的浏览器不支持音频元素。
+                        </audio>
+                    </div>
+
+                    <!-- 自己发送音频消息 -->
+                    <div class="chat-message self">
+                        <audio class="message-content" controls>
+                            <source src="./uploads/audio/林俊杰 - 进阶.mp3"
+                                type="audio/mpeg">
+                            您的浏览器不支持音频元素。
+                        </audio>
+                        <img class="message-avatar" src="user1.png"
+                            alt="我的头像" />
+                    </div>
+
+                    <!-- 对方发送视频消息 -->
+                    <div class="chat-message other">
+                        <img class="message-avatar" src="user2.png"
+                            alt="对方头像" />
+                        <video class="message-content" controls>
+                            <source src="./uploads/video/video1.mp4"
+                                type="video/mp4">
+                            您的浏览器不支持视频元素。
+                        </video>
+                    </div>
+
+                    <!-- 自己发送视频消息 -->
+                    <div class="chat-message self">
+                        <video class="message-content" controls>
+                            <source src="./uploads/video/video2.mp4"
+                                type="video/mp4">
+                            您的浏览器不支持视频元素。
+                        </video>
+                        <img class="message-avatar" src="user1.png"
+                            alt="我的头像" />
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <div class="left-icons">
+                        <button id="emoji-button">😀</button>
+                        <input type="file" id="file-upload"
+                            style="display: none;" />
+                        <button id="file-button"
+                            onclick="document.getElementById('file-upload').click()">📂</button>
+                    </div>
+                    <textarea id="message-input"
+                        placeholder="输入消息..."></textarea>
+                </div>
+
+                <!-- Emoji面板 -->
+                <div id="emoji-panel" class="emoji-panel"
+                    style="display: none;">
+                    <button class="emoji"
+                        onclick="insertEmoji('😊')">😊</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('😂')">😂</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('😍')">😍</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('🥺')">🥺</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('😎')">😎</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('🥳')">🥳</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('😅')">😅</button>
+                    <button class="emoji"
+                        onclick="insertEmoji('😢')">😢</button>
+                    <!-- 更多表情按钮 -->
+                    <button class="emoji" onclick="insertEmoji('🙃')">🙃</button>
+                    <button class="emoji" onclick="insertEmoji('😜')">😜</button>
+                    <button class="emoji" onclick="insertEmoji('💀')">💀</button>
+                    <!-- 添加更多emoji -->
+                    <button class="emoji" onclick="insertEmoji('😙')">😙</button>
+                    <button class="emoji" onclick="insertEmoji('😘')">😘</button>
+                    <button class="emoji" onclick="insertEmoji('😗')">😗</button>
+                    <button class="emoji" onclick="insertEmoji('😖')">😖</button>
+                    <button class="emoji" onclick="insertEmoji('😚')">😚</button>
+                    <button class="emoji" onclick="insertEmoji('😋')">😋</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="enter.js"></script>
+        <script src="chat.js"></script>
+        <script src="emoji.js"></script>
+    </body>
+</html>

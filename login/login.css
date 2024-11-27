@@ -1,0 +1,212 @@
+/*设置底色*/
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 黑体;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f4f5f3;
+
+    margin: 0; /* 去掉默认边距 */
+    padding: 0; /* 去掉默认填充 */
+    background-image: url('login_background.png'); /* 替换为你的图片路径 */
+    background-size: cover; /* 让图片覆盖整个页面 */
+    background-position: center; /* 让图片居中显示 */
+    background-repeat: no-repeat; /* 避免图片重复 */
+}
+
+/*设置登录盒子的大小和底色*/
+.box {
+    position: relative;
+    width: 380px;
+    height: 420px;
+    background: #4d3896;
+    border-radius: 8px;
+}
+
+/*开启flex布局，换轴*/
+.box form {
+    position: absolute;
+    inset: 4px;
+    background: #222;
+    padding: 50px 40px;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+/*标题文字样式，输入框盒子大小间距*/
+.box form h2 {
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.lem;
+}
+
+.box form .inputBox {
+    position: relative;
+    width: 300px;
+    margin-top: 35px;
+}
+
+/*调整输入框样式*/
+.box form .inputBox input {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: rgb(31, 17, 232);
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    z-index: 10;
+}
+
+/*提示文字样式*/
+.box form .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 20px 0px 10px;
+    pointer-events: none;
+    color: #8f8f8f;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+}
+
+/*输入有效值获取焦点时样式*/
+.box form .inputBox input {
+    transition: 0.5s;
+}
+
+.box form .inputBox span {
+    transition: 0.5s;
+}
+
+.box form .inputBox input:valid~span, .box form .inputBox input:focus~span {
+    color: #fff;
+    font-size: 0.75em;
+    transform: translateY(-34px);
+}
+
+/*设置白色下划线，并设置点击穿透*/
+.box form .inputBox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+/*输入有效值获取焦点时样式*/
+.box form .inputBox input:valid~i, .box form .inputBox input:focus~i {
+    height: 44px;
+}
+
+/*开启flex a链接样式*/
+.box form .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box form .links a {
+    margin: 10px 0;
+    font-size: 0.75em;
+    color: #8f8f8f;
+    text-decoration: none;
+}
+
+/*a链接hover时改颜色，注册直接改颜色*/
+.box form .links a:hover, .box form .links a:nth-child(2) {
+    color: #fff;
+}
+
+/*修改登录按钮样式*/
+.box form input[type="submit"] {
+    border: none;
+    outline: none;
+    padding: 9px 25px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 100px;
+    margin-top: 10px;
+}
+
+/*登录按钮点击时，透明度80%*/
+.box form input[type="submit"]:active {
+    opacity: 0.8;
+}
+
+/*写动画*/
+.borderLine {
+    position: absolute;
+    top: 0;
+    inset: 0;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*添加动画*/
+.box::before, .box::after, .borderLine::before, .borderLine::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent, transparent, #45f3ff, #45f3ff, #45f3ff);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+
+/*添加动画延迟，修改为两种颜色*/
+.box::after {
+    animation-delay: -3s;
+}
+
+.borderLine::before {
+    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    animation-delay: -1.5s;
+}
+
+.borderLine::after {
+    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    animation-delay: -4.5s;
+}
+
+/*退出隐藏*/
+.box {
+    overflow: hidden;
+}
+
+/* 标题字体大小 */
+#title {
+    font-size: 24px;
+    font-family: 'Pacifico', cursive;
+    color: #fff;
+    text-align: center;
+}

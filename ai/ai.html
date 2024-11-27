@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouChat-AI 助手</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+        .input-box {
+            margin-bottom: 10px;
+        }
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        
+        .response-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            max-height: 300px;  /* 设置最大高度 */
+            overflow-y: auto;   /* 启用垂直滚动 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouChat-AI 助手</h1>
+        <div class="input-box">
+            <label for="user-input">请输入问题：</label>
+            <input type="text" id="user-input" placeholder="问我任何问题...">
+        </div>
+        <button class="button" onclick="askQuestion()">提交</button>
+
+        <div class="response-box" id="response-box" style="display:none;">
+            <h3>YouChat-AI 回答：</h3>
+            <p id="response-text"></p>
+        </div>
+    </div>
+
+    <script>
+        function askQuestion() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') {
+                alert("请输入问题！");
+                return;
+            }
+
+            // 显示加载中
+            const responseBox = document.getElementById('response-box');
+            responseBox.style.display = 'none'; // 隐藏之前的回答
+
+            // 发送请求到后端
+            fetch('http://localhost:5000/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: userInput  // 从用户输入框获取数据
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.answer) {
+                    document.getElementById('response-text').textContent = data.answer;
+                    responseBox.style.display = 'block';
+                } else {
+                    alert('出现错误: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('请求失败，请稍后再试');
+            });
+        }
+    </script>
+</body>
+</html>

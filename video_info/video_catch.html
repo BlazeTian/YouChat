@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>YouChat扩展爬虫</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+            rel="stylesheet">
+        <style>
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .input-box {
+                margin-bottom: 10px;
+                display: flex;
+                flex-direction: column;
+            }
+            .input-box label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            select, input[type="text"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+            .button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px;
+                border: none;
+                cursor: pointer;
+            }
+            .button:hover {
+                background-color: #45a049;
+            }
+            .file-list {
+                margin-top: 20px;
+            }
+            .file-list ul {
+                list-style: none;
+                padding: 0;
+            }
+            .file-list li {
+                padding: 8px 0;
+                font-size: 14px;
+            }
+            .button_add {
+                
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    cursor: pointer;
+                
+            }
+        </style>
+    </head>
+    <body onload="startAutoUpdate()">
+        <div class="container">
+            <h1 style="font-family: 'Pacifico', cursive;">YouChat扩展视频爬虫</h1>
+
+            <div class="input-box">
+                <label for="movie-name">请输入影视剧名称：</label>
+                <input type="text" id="movie-name" placeholder="输入影视剧名称"
+                    onkeyup="searchMovies()">
+                <select id="movie-select" onchange="updateUrls()">
+                    <option value>选择影视剧</option>
+                </select>
+            </div>
+
+            <div class="input-box">
+                <label for="url-select">选择影视剧URL：</label>
+                <select id="url-select">
+                    <option value>选择URL</option>
+                </select>
+            </div>
+
+            <button class="button" onclick="startDownload()">抓取视频</button>
+            <br>
+            <br>
+            <input type="text" id="url-select2">
+            <button class="button" onclick="load()">抓取视频</button>
+
+            <div class="file-list">
+                <h3>文件夹中的视频：</h3>
+                <ul id="file-list">
+
+                </ul>
+                <button class="button_add" onclick="addVideo()">刷新</button>
+            </div>
+
+        </div>
+
+        <script>
+            let movieData = {};  // 存储影视剧和对应URL的映射
+
+            function removeLastSlashAndBefore(url) {
+                const lastIndex = url.lastIndexOf('/'); // 获取最后一个 '/' 的索引
+                if (lastIndex !== -1) {
+                    return url.slice(lastIndex + 1); // 截取 '/' 后的部分
+                }
+                return url; // 如果没有 '/'，返回原字符串
+            }
+
+            function load() {
+                const selectedUrl2 = document.getElementById('url-select2').value;
+                fetch(`http://localhost:8000/download?url=${selectedUrl2}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "success") {
+                                alert("下载成功！");
+                                fetchFileList(); // 刷新文件夹视频列表
+                            } else {
+                                alert("下载失败！");
+                            }
+                        }
+                        );
+            }
+            
+
+
+            function addVideo() {
+                // 创建一个新的 <video> 元素
+                const videoElement = document.createElement("video");
+
+                // 随机选择一个视频源 URL
+                const videoSrc = url();
+                // 设置视频的属性
+                videoElement.setAttribute("src", videoSrc);
+                videoElement.setAttribute("controls", "true");
+                videoElement.setAttribute("width", "600");
+                videoElement.setAttribute("height", "300");
+
+                // 将视频元素添加到页面上的视频容器中
+                const container = document.getElementById("file-list");
+                container.appendChild(videoElement);
+            }
+
+            // 模拟影视剧数据
+            const movies = [
+                { name: "战狼2", urls: generateUrls(3) },
+                { name: "流浪地球", urls: generateUrls(3) },
+                { name: "复仇者联盟", urls: generateUrls(3) },
+                { name: "哪吒之魔童降世", urls: generateUrls(3) },
+                { name: "红海行动", urls: generateUrls(3) },
+                { name: "美国队长3：内战", urls: generateUrls(3) },
+                { name: "速度与激情8", urls: generateUrls(3) },
+                { name: "唐人街探案2", urls: generateUrls(3) },
+                { name: "我不是药神", urls: generateUrls(3) },
+                { name: "疯狂的外星人", urls: generateUrls(3) },
+                { name: "海王", urls: generateUrls(3) },
+                { name: "阿丽塔：战斗天使", urls: generateUrls(3) },
+                { name: "烈火英雄", urls: generateUrls(3) },
+                { name: "惊奇队长", urls: generateUrls(3) },
+                { name: "蜘蛛侠：英雄归来", urls: generateUrls(3) },
+                { name: "复仇者联盟4：终局之战", urls: generateUrls(3) },
+                { name: "功夫", urls: generateUrls(3) },
+                { name: "斗罗大陆", urls: generateUrls(3) },
+                { name: "斗破苍穹", urls: ["https://sf16-sg-default.akamaized.net/obj/tos-alisg-v-0051c001-sg/okRELBn9EAoJ5nSB6AlivqqIMEomwxicz4A6Lf","https://sf16-sg-default.akamaized.net/obj/tos-alisg-v-0051c001-sg/o0XY6HqAY9zAaBAWAMLBbEi7UZi6vRyqESpSv","https://sf16-sg-default.akamaized.net/obj/tos-alisg-v-0051c001-sg/oAUBYDZmAS1uzD6aAYiAIyizE5S0MYUEzPimM","https://sf16-sg-default.akamaized.net/obj/tos-alisg-v-0051c001-sg/oYlGxBuE3sinAa8fBwxcJoz39YmIjA52iEZARn"] },
+            ];
+
+            function generateRandomString(length) {
+                const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let randomString = '';
+                for (let i = 0; i < length; i++) {
+                    randomString += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+                }
+                return randomString;
+            }
+
+            function generateUrls(count) {
+                const urlSuffixes = ['.com', '.net', '.xyz', '.io', '.co', '.mil', '.int'];
+                const urls = [];
+                for (let i = 0; i < count; i++) {
+                    const randomString = generateRandomString(10);
+                    const randomSuffix = urlSuffixes[Math.floor(Math.random() * urlSuffixes.length)];
+                    urls.push(`http://${randomString}${randomSuffix}/`);
+                }
+                return urls;
+            }
+
+            function url() {
+                return `../../app/uploads/video/${removeLastSlashAndBefore(document.getElementById('url-select').value)}.mp4`;
+            }
+
+            // 填充影视剧名称下拉列表
+            function searchMovies() {
+                const inputValue = document.getElementById('movie-name').value.trim();
+                const movieSelect = document.getElementById('movie-select');
+                movieSelect.innerHTML = "<option value=''>选择影视剧</option>";
+
+                if (inputValue) {
+                    const filteredMovies = movies.filter(movie => movie.name.includes(inputValue));
+                    filteredMovies.forEach(movie => {
+                        const option = document.createElement('option');
+                        option.value = movie.name;
+                        option.textContent = movie.name;
+                        movieSelect.appendChild(option);
+                    });
+                }
+            }
+
+            // 更新影视剧URL下拉列表
+            function updateUrls() {
+                const selectedMovie = document.getElementById('movie-select').value;
+                const urlSelect = document.getElementById('url-select');
+                urlSelect.innerHTML = "<option value=''>选择URL</option>";
+
+                if (selectedMovie) {
+                    const movie = movies.find(movie => movie.name === selectedMovie);
+                    movie.urls.forEach(url => {
+                        const option = document.createElement('option');
+                        option.value = url;
+                        option.textContent = url;
+                        urlSelect.appendChild(option);
+                    });
+                }
+            }
+
+            // 启动下载
+            function startDownload() {
+                const selectedMovie = document.getElementById('movie-select').value;
+                const selectedUrl = document.getElementById('url-select').value;
+
+                if (selectedMovie && selectedUrl) {
+                    fetch(`http://localhost:8000/download?url=${selectedUrl}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "success") {
+                                alert("下载成功！");
+                                fetchFileList(); // 刷新文件夹视频列表
+                            } else {
+                                alert("下载失败！");
+                            }
+                        });
+                } else {
+                    alert("请选择影视剧和URL！");
+                }
+            }
+
+            
+
+            // 刷新文件夹视频列表
+            /*function fetchFileList() {
+                const fileList = document.getElementById('file-list');
+                fileList.innerHTML = "";
+                sampleFiles.forEach(file => {
+                    const li = document.createElement('video');
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                    url(); // 每次添加文件时调用url函数
+                });
+            }
+
+            // 每2秒更新一次文件列表
+            function startAutoUpdate() {
+                setInterval(fetchFileList, 2000);  // 每2秒更新一次
+            }
+
+            // 初始加载文件夹视频列表
+            fetchFileList();*/
+        </script>
+    </body>
+</html>
